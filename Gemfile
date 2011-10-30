@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
 gem 'heroku'
+gem 'less-rails-bootstrap'
 
 group :production do
   gem 'pg'
@@ -19,4 +20,6 @@ gem 'jquery-rails'
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'faker'
 end

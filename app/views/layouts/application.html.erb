@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SocialQuotes</title>
+  <title>Social Quotes</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div class="topbar">
+    <%= render 'layouts/topbar' %>
+  </div><!-- /topbar -->
+  <div class="container", style='margin-top: 40px; padding-top: 10px'>
+    <% flash.each do |name, msg| -%>
+      <%= display_flash(name,msg)%>
+    <% end -%>
+    <%= yield %>
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>Social Quotes &copy; 2011</p>
+      </div>
+    </footer>
+  </div><!-- /container -->
 </body>
 </html>

@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="span12">
+    <h1><%= @quote.body %></h1>
+    <div align="right">
+      <p>
+        <h4><i><%= @quote.reference %></i></h4>
+      </p>
+    </div>
+    <h5>Remark</h5>
+    <p><%= @quote.remark %></p>
+    <%= link_to 'Edit', edit_quote_path(@quote) %>
+  </div>
+  <div class="span4">
+    <%= render 'sidebar' %>
+  </div>
+</div>
