@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.1'
 gem 'heroku'
 gem 'less-rails-bootstrap'
+gem 'kaminari'
 
 group :production do
   gem 'pg'

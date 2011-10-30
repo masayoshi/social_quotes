@@ -2,7 +2,7 @@ class QuotesController < ApplicationController
   # GET /quotes
   # GET /quotes.json
   def index
-    @quotes = Quote.all
+    @quotes = Quote.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
