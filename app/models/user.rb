@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   validates :username,:presence => true
+
+  has_many :quotes, :dependent => :destroy
 end
 # == Schema Information
 #

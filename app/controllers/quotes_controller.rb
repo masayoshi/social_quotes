@@ -1,83 +1,62 @@
 class QuotesController < ApplicationController
-  # GET /quotes
-  # GET /quotes.json
+  before_filter :authenticate_user!, :except => [:index, :show]
+  
   def index
     @quotes = Quote.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @quotes }
-    end
   end
 
-  # GET /quotes/1
-  # GET /quotes/1.json
   def show
-    @quote = Quote.find(params[:id])
+    @quote = Quote.find_by_id(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @quote }
+    if @quote.blank?
+      redirect_to root_path, alert: 'Quote was not found.' 
     end
   end
 
-  # GET /quotes/new
-  # GET /quotes/new.json
   def new
     @quote = Quote.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @quote }
-    end
   end
 
-  # GET /quotes/1/edit
   def edit
-    @quote = Quote.find(params[:id])
+    @quote = current_user.quotes.find_by_id(params[:id])
+    
+    if @quote.blank?
+      redirect_to root_path, alert: 'Quote was not found.' 
+    end
   end
 
-  # POST /quotes
-  # POST /quotes.json
   def create
-    @quote = Quote.new(params[:quote])
+    @quote = current_user.quotes.build(params[:quote])
 
-    respond_to do |format|
-      if @quote.save
-        format.html { redirect_to @quote, notice: 'Quote was successfully created.' }
-        format.json { render json: @quote, status: :created, location: @quote }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @quote.errors, status: :unprocessable_entity }
-      end
+    if @quote.save
+      redirect_to @quote, notice: 'Quote was successfully created.'
+    else
+      render action: "new"
     end
   end
 
-  # PUT /quotes/1
-  # PUT /quotes/1.json
   def update
-    @quote = Quote.find(params[:id])
-
-    respond_to do |format|
+    @quote = current_user.quotes.find_by_id(params[:id])
+    
+    if @quote.present?
       if @quote.update_attributes(params[:quote])
-        format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
-        format.json { head :ok }
+        redirect_to @quote, notice: 'Quote was successfully updated.'
       else
-        format.html { render action: "edit" }
-        format.json { render json: @quote.errors, status: :unprocessable_entity }
+        render action: "edit"
       end
+    else
+      redirect_to root_path, alert: 'Quote was not found.'      
     end
   end
 
-  # DELETE /quotes/1
-  # DELETE /quotes/1.json
   def destroy
-    @quote = Quote.find(params[:id])
-    @quote.destroy
+    @quote = current_user.quotes.find_by_id(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to quotes_url }
-      format.json { head :ok }
+    if @quote.present?
+      @quote.destroy
+      redirect_to quotes_path, notice: 'Quote was successfully deleted.'
+    else
+      redirect_to root_path, alert: 'Quote was not found.'      
     end
   end
 end

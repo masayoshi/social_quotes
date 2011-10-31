@@ -10,8 +10,10 @@
       <div align="right">
         <p>
           <i><%= quote.reference %></i><br />
-          <%= link_to 'Edit', edit_quote_path(quote) %>|
-          <%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete %>
+          <% if user_signed_in? && quote.user_id == current_user.id -%>
+            <%= link_to 'Edit', edit_quote_path(quote), class: "btn small primary" %>
+            <%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete,class: "btn small primary" %>
+          <% end -%>
         </p>
       </div>
       <div class="page-header", style="margin-top: 10px">

@@ -4,6 +4,9 @@ class Quote < ActiveRecord::Base
   validates :reference, :presence => true,
                         :length => { :maximum => 100 }
   validates :remark,    :length => { :maximum => 500 }
+  validates :user_id,   :presence => true
+
+  belongs_to :user
     
   paginates_per 5
   default_scope :order => 'created_at DESC'
@@ -18,5 +21,6 @@ end
 #  remark     :text
 #  created_at :datetime
 #  updated_at :datetime
+#  user_id    :integer
 #
 

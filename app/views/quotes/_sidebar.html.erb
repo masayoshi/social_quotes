@@ -1,1 +1,6 @@
-<%= link_to 'New Quote', new_quote_path %>
+<% if user_signed_in? -%>
+  <%= link_to 'New Quote', new_quote_path, class: "btn primary" %>
+<% else -%>
+  <%= link_to "Sign up", new_user_registration_path %><br />
+  <%= link_to "Sign in", new_user_session_path %>
+<% end -%>

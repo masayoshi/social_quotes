@@ -13,5 +13,6 @@ end
 #  remark     :text
 #  created_at :datetime
 #  updated_at :datetime
+#  user_id    :integer
 #
 

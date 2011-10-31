@@ -8,7 +8,10 @@
     </div>
     <h5>Remark</h5>
     <p><%= @quote.remark %></p>
-    <%= link_to 'Edit', edit_quote_path(@quote) %>
+    <% if user_signed_in? && @quote.user_id == current_user.id -%>
+      <%= link_to 'Edit', edit_quote_path(@quote), class: "btn small primary" %>
+      <%= link_to 'Destroy', @quote, confirm: 'Are you sure?', method: :delete,class: "btn small primary" %>
+    <% end -%>
   </div>
   <div class="span4">
     <%= render 'sidebar' %>
