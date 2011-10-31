@@ -1,0 +1,51 @@
+<div class="page-header">
+  <h2>Sign up</h2>    
+</div>
+<div class="row">
+  <div class="span10">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <% if resource.errors.any? -%>
+        <div class="alert-message block-message error">
+          <h3><%= pluralize(resource.errors.count, "error") %> prohibited:</h3>
+          <ul>
+            <% resource.errors.full_messages.each do |msg| -%>
+              <li><%= msg %></li>
+            <% end -%>
+          </ul>
+        </div>
+      <% end -%>
+      <fieldset>
+        <div class="clearfix">
+          <%= f.label :username %>
+          <div class="input">
+            <%= f.text_field :username %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :email %>
+          <div class="input">
+            <%= f.email_field :email %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :password %>
+          <div class="input">
+            <%= f.password_field :password %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :password_confirmation %>
+          <div class="input">
+            <%= f.password_field :password_confirmation %>
+          </div>
+        </div>
+        <div class="actions">
+          <%= f.submit "Sign up", :class => "btn primary", :name => "commit" %>
+        </div>
+      </fieldset>
+    <% end -%>
+  </div>
+  <div class="span6">
+    <%= render :partial => "devise/shared/links" %>
+  </div>
+</div>
