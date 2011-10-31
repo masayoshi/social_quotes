@@ -4,3 +4,10 @@
   <%= link_to "Sign up", new_user_registration_path %><br />
   <%= link_to "Sign in", new_user_session_path %>
 <% end -%>
+<div class="page-header", style="margin-top: 10px">
+</div>
+<% if @user.present? -%>
+  <h2><%= @user.username %></h2><br />
+  <%= gravatar_image_tag(@user.email) %>
+  <h3>Quotes : <%= link_to @user.quotes.count, quotes_path(user_id: @user.id) %></h3>
+<% end -%>

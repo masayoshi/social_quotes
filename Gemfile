@@ -5,6 +5,7 @@ gem 'heroku'
 gem 'less-rails-bootstrap'
 gem 'kaminari'
 gem 'devise'
+gem 'gravatar_image_tag'
 
 group :production do
   gem 'pg'

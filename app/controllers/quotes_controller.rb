@@ -2,14 +2,19 @@ class QuotesController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
   
   def index
-    @quotes = Quote.page(params[:page])
+    if params[:user_id].present? && (@user = User.find_by_id(params[:user_id]))
+      @quotes = @user.quotes.page(params[:page])
+    else
+      @quotes = Quote.page(params[:page])      
+    end
   end
 
   def show
     @quote = Quote.find_by_id(params[:id])
-
     if @quote.blank?
-      redirect_to root_path, alert: 'Quote was not found.' 
+      redirect_to root_path, alert: 'Quote was not found.'
+    else
+      @user = @quote.user
     end
   end
 
