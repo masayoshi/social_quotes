@@ -1,5 +1,8 @@
 <div class="page-header">
-  <h1><%= @user.username + "'s " if @user.present? %>Quotes List</h1>
+  <h1>
+    <%= @user.username + "'s " if @user.present? %>Quotes List
+    <%= "<small>Tagged with: #{params[:tag]}</small>".html_safe if params[:tag].present? %>
+  </h1>
 </div>
 <div class="row">
   <div class="span12">

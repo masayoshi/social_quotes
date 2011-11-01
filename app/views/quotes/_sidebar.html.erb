@@ -11,3 +11,10 @@
   <%= gravatar_image_tag(@user.email) %>
   <h3>Quotes : <%= link_to @user.quotes.count, quotes_path(user_id: @user.id) %></h3>
 <% end -%>
+<div class="page-header", style="margin-top: 10px">
+</div>
+<% if @tags.present? -%>
+  <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
+    <%= link_to tag.name, quotes_path(tag: tag.name), :class => css_class %>
+  <% end %>
+<% end %>

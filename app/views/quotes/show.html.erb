@@ -6,12 +6,21 @@
         <h4><i><%= @quote.reference %></i></h4>
       </p>
     </div>
+    <h4>Tags</h4>
+    <p>
+      <b>
+        <% @quote.tags.each do |tag| -%>
+          <b><%= link_to tag.name, quotes_path(tag: tag.name) %>
+        <% end -%>
+        </b>
+    </p>
     <h5>Remark</h5>
     <p><%= @quote.remark %></p>
     <% if user_signed_in? && @quote.user_id == current_user.id -%>
       <%= link_to 'Edit', edit_quote_path(@quote), class: "btn small primary" %>
       <%= link_to 'Destroy', @quote, confirm: 'Are you sure?', method: :delete,class: "btn small primary" %>
     <% end -%>
+    
   </div>
   <div class="span4">
     <%= render 'sidebar' %>

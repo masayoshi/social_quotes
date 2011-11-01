@@ -27,6 +27,13 @@
       </div>
     </div>
     <div class="clearfix">
+      <%= f.label :tag_list, 'Tags' %>
+      <div class="input">
+        <%= f.text_field :tag_list, :class => "xxlarge" %>
+        <span class="help-block">Input Tags (Camma separated : tag1, tag2, tag3 )</span>
+      </div>
+    </div>
+    <div class="clearfix">
       <%= f.label :remark, 'Remark' %>
       <div class="input">
         <%= f.text_area :remark, :class => "xxlarge", :rows => "5" %>

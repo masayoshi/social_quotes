@@ -6,6 +6,7 @@ gem 'less-rails-bootstrap'
 gem 'kaminari'
 gem 'devise'
 gem 'gravatar_image_tag'
+gem 'acts-as-taggable-on'
 
 group :production do
   gem 'pg'

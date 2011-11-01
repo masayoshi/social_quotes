@@ -10,6 +10,8 @@ class Quote < ActiveRecord::Base
     
   paginates_per 5
   default_scope :order => 'created_at DESC'
+
+  acts_as_taggable
 end
 # == Schema Information
 #
