@@ -2,6 +2,7 @@
   <h1>
     <%= @user.username + "'s " if @user.present? %>Quotes List
     <%= "<small>Tagged with: #{params[:tag]}</small>".html_safe if params[:tag].present? %>
+    <%= "<small>Search Keyword: #{params[:keyword]}</small>".html_safe if params[:keyword].present? %>
   </h1>
 </div>
 <div class="row">

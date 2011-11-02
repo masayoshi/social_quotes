@@ -5,6 +5,8 @@ class QuotesController < ApplicationController
   def index
     if params[:tag].present?
       @quotes = Quote.tagged_with(params[:tag]).page(params[:page])
+    elsif params[:keyword].present?
+      @quotes = Quote.keyword_search(params[:keyword]).page(params[:page])
     elsif params[:user_id].present? && (@user = User.find_by_id(params[:user_id]))
       @quotes = @user.quotes.page(params[:page])
     else
