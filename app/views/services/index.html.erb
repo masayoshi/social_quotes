@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h1>Services</h1>
+</div>
+<div class="row">
+  <div class="span16">
+    <% if @services.present? -%>
+      <div class="page-header">
+        <h3>Connected Services</h3>
+      </div>
+      <div class="well">
+        <% @services.each do |service| -%>
+          <%= image_tag "#{service.provider}_32.png" %>
+          <%= service.uid %> - 
+          <%= link_to "Disconnect #{service.provider}", service , :confirm => 'Are you sure you want to remove this service option?', :method => :delete %><br />
+        <% end -%>
+      </div>
+    <% end -%>
+    <div class="page-header">
+      <h3>Connect Services</h3>
+    </div>
+    <%= render :partial => "service_links" %>
+  </div>
+</div>

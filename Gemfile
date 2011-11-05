@@ -7,6 +7,9 @@ gem 'kaminari'
 gem 'devise'
 gem 'gravatar_image_tag'
 gem 'acts-as-taggable-on'
+gem 'omniauth', '0.3.2'
+gem 'authbuttons-rails'
+gem 'twitter'
 
 group :production do
   gem 'pg'

@@ -39,6 +39,7 @@ class QuotesController < ApplicationController
     @quote = current_user.quotes.build(params[:quote])
 
     if @quote.save
+      current_user.twitter.update(@quote.body[0..99] + " ... "  + quote_url(@quote)) if params[:twitter] == 'yes'
       redirect_to @quote, notice: 'Quote was successfully created.'
     else
       render action: "new"
@@ -50,6 +51,7 @@ class QuotesController < ApplicationController
     
     if @quote.present?
       if @quote.update_attributes(params[:quote])
+        current_user.twitter.update(@quote.body[0..99] + " ... "  + quote_url(@quote)) if params[:twitter] == 'yes'
         redirect_to @quote, notice: 'Quote was successfully updated.'
       else
         render action: "edit"

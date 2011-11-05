@@ -7,24 +7,28 @@
 </div>
 <div class="row">
   <div class="span12">
-    <% @quotes.each do |quote| %>
-      <p>
-        <blockquote><%= link_to quote.body, quote %></blockquote>        
-      </p>
-      <div align="right">
+    <% if @quotes.empty? -%>
+      <p>There is no quotes</p>
+    <% else -%>
+      <% @quotes.each do |quote| %>
         <p>
-          <i><%= quote.reference %></i><br />
-          Quoted by <%= link_to quote.user.username, quotes_path(user_id: quote.user.id)%><br />
-          <% if user_signed_in? && quote.user_id == current_user.id -%>
-            <%= link_to 'Edit', edit_quote_path(quote), class: "btn small primary" %>
-            <%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete,class: "btn small primary" %>
-          <% end -%>
+          <blockquote><%= link_to quote.body, quote %></blockquote>        
         </p>
-      </div>
-      <div class="page-header", style="margin-top: 10px">
-      </div>
-    <% end %>
-    <%= paginate @quotes %>
+        <div align="right">
+          <p>
+            <i><%= quote.reference %></i><br />
+            Quoted by <%= link_to quote.user.username, quotes_path(user_id: quote.user.id)%><br />
+            <% if user_signed_in? && quote.user_id == current_user.id -%>
+              <%= link_to 'Edit', edit_quote_path(quote), class: "btn small primary" %>
+              <%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete,class: "btn small primary" %>
+            <% end -%>
+          </p>
+        </div>
+        <div class="page-header", style="margin-top: 10px">
+        </div>
+      <% end -%>
+      <%= paginate @quotes %>
+    <% end -%>    
   </div>
   <div class="span4">
     <%= render 'sidebar' %>

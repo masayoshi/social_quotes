@@ -59,7 +59,7 @@ SocialQuotes::Application.configure do
   config.active_support.deprecation = :notify
 
   # Configuration for Devise in Production Environment
-  config.action_mailer.default_url_options = { :host => 'social-quotes-staging.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host =>  ENV['DEVICE_HOST'] }
 
   # Configuration for SendGrid
   ActionMailer::Base.smtp_settings = {
