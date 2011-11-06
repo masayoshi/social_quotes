@@ -21,6 +21,19 @@ class ServicesController < ApplicationController
         else
           redirect_to root_path, alert: "Error while saving Authentication information."
         end
+      elsif (omniauth['provider'] == "facebook")
+        if existinguser = User.find_by_email(omniauth['extra']['user_hash']['email'])
+          existinguser.connect_service(omniauth)
+          if existinguser.save
+            flash[:notice] = "Signed in successfully."
+            sign_in_and_redirect(:user,existinguser)
+          else
+            redirect_to root_path, alert: "Error while saving Authentication information."
+          end
+        else
+          session[:omniauth] = omniauth
+          redirect_to new_user_registration_url
+        end
       else
         session[:omniauth] = omniauth.except('extra')
         redirect_to new_user_registration_url

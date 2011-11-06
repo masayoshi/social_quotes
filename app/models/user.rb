@@ -13,7 +13,10 @@ class User < ActiveRecord::Base
     case omniauth['provider']
     when "twitter"
       email = ''    # Twitter API never returns the email address
-      omniauth['user_info']['nickname'] ? uname =  omniauth['user_info']['nickname'] : name = ''
+      omniauth['user_info']['nickname'] ? uname =  omniauth['user_info']['nickname'] : uname = ''
+    when "facebook"
+      omniauth['extra']['user_hash']['email'] ? email =  omniauth['extra']['user_hash']['email'] : email = ''
+      omniauth['extra']['user_hash']['name'] ? uname =  omniauth['extra']['user_hash']['name'] : uname = ''
     end
     self.email = email if self.email.blank?
     self.username = uname if self.username.blank?
@@ -22,11 +25,18 @@ class User < ActiveRecord::Base
   end
   
   def connect_service(omniauth)
-    # Set uid and provider
-    omniauth['uid'] ?  uid =  omniauth['uid'] : uid = ''
-    omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
-    token = (omniauth['credentials']['token'] rescue nil)
-    secret = (omniauth['credentials']['secret'] rescue nil)
+    case omniauth['provider']
+    when "twitter"
+      omniauth['uid'] ?  uid =  omniauth['uid'] : uid = ''
+      omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
+      token = (omniauth['credentials']['token'] rescue nil)
+      secret = (omniauth['credentials']['secret'] rescue nil)
+    when "facebook"
+      omniauth['extra']['user_hash']['id'] ?  uid =  omniauth['extra']['user_hash']['id'] : uid = ''
+      omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
+      token = (omniauth['credentials']['token'] rescue nil)
+      secret = ''
+    end
     services.build(:provider => provider,:uid => uid,:token => token, :secret => secret)
   end
 
@@ -36,6 +46,10 @@ class User < ActiveRecord::Base
       @twitter_user = Twitter::Client.new(:oauth_token => provider.token, :oauth_token_secret => provider.secret) rescue nil
     end
     @twitter_user
+  end
+
+  def facebook
+    @fb_user ||= FbGraph::User.me(self.services.find_by_provider('facebook').token)
   end
   
   def password_required?  

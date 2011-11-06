@@ -42,10 +42,14 @@
     </div>
     <div class="clearfix">
       <% if current_user.services.find_by_provider('twitter').present? -%>
-
-      <div class="input">
-        <%= check_box_tag 'twitter', 'yes', true %> Tweet on Twitter
-      </div>
+        <div class="input">
+          <%= check_box_tag 'twitter', 'yes', true %> Tweet on Twitter
+        </div>
+      <% end %>
+      <% if current_user.services.find_by_provider('facebook').present? -%>
+        <div class="input">
+          <%= check_box_tag 'facebook', 'yes', true %> Post on Facebook Wall
+        </div>
       <% end %>
     </div>
     <div class="actions">

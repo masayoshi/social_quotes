@@ -10,6 +10,7 @@ gem 'acts-as-taggable-on'
 gem 'omniauth', '0.3.2'
 gem 'authbuttons-rails'
 gem 'twitter'
+gem 'fb_graph'
 
 group :production do
   gem 'pg'
