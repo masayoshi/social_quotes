@@ -27,6 +27,7 @@
             <%=  f.password_field :password_confirmation %>
           </div>
         </div>
+        <%= f.hidden_field :reset_password_token %>
         <div class="actions">
           <%= f.submit "Change my password", :class => "btn primary", :name => "commit" %>
         </div>
