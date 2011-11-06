@@ -45,6 +45,7 @@ class QuotesController < ApplicationController
       if params[:facebook] == 'yes'
         current_user.facebook.feed!(:message => @quote.body + " - " + @quote.reference,
                                     :link => quote_url(@quote),
+                                    :name => "Social Quotes",
                                     :description => @quote.remark)
       end      
       redirect_to @quote, notice: 'Quote was successfully created.'
@@ -64,6 +65,7 @@ class QuotesController < ApplicationController
         if params[:facebook] == 'yes'
           current_user.facebook.feed!(:message => @quote.body + " - " + @quote.reference,
                                       :link => quote_url(@quote),
+                                      :name => "Social Quotes",
                                       :description => @quote.remark)
         end
         redirect_to @quote, notice: 'Quote was successfully updated.'
